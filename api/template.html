@@ -1,0 +1,41 @@
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+<table class="table" style="text-align: center;">
+    <thead>
+      <tr>
+        <th scope="col">Sale value in shekels</th>
+        <th scope="col">Part Sold</th>
+        <th scope="col">Area</th>
+        <th scope="col">Rooms</th>
+        <th scope="col">Sale Quarter</th>
+        <th scope="col">Sale Year</th>
+        <th scope="col">Num Building</th>
+      </tr>
+    </thead>
+    <tbody>
+
+        {% for i,row in data.iterrows() %}
+
+      <tr>
+        <td>{{row["Sale_value_in_shekels"]}}</td>
+           <td>{{row["Part_Sold"]}}</td>
+           <td> {{ row["Area"]}}</td>
+           <td>{{row["Rooms"]}}</td>	
+           <td>{{row["Sale_Quarter"]}}</td>	
+           <td>{{row["Sale_Year"]}}</td>
+           <td>{{row["Num_Building"]}}</td>	
+        <td><a href='/details/{{i}}'>more...</a></td>
+      </tr>
+
+        {% endfor %}
+      
+    </tbody>
+  </table>
+  </body>
+  
