@@ -6,22 +6,21 @@ import * as Yup from 'yup';
  
 export default function Form() {
   const validationSchema = Yup.object().shape({
-    fullname: Yup.string().required('Fullname is required'),
-    username: Yup.string()
-      .required('Username is required')
-      .min(6, 'Username must be at least 6 characters')
-      .max(20, 'Username must not exceed 20 characters'),
-    email: Yup.string()
-      .required('Email is required')
-      .email('Email is invalid'),
-    password: Yup.string()
-      .required('Password is required')
-      .min(6, 'Password must be at least 6 characters')
-      .max(40, 'Password must not exceed 40 characters'),
-    confirmPassword: Yup.string()
-      .required('Confirm Password is required')
-      .oneOf([Yup.ref('password'), null], 'Confirm Password does not match'),
-    acceptTerms: Yup.bool().oneOf([true], 'Accept Terms is required')
+    Sale_value_in_shekels: Yup.string()
+    .required('Sale value is required'),    
+      Area: Yup.string()
+      .required('Area is required'), 
+      Num_Building: Yup.string()
+      .required('Num Building is required'),       
+      Part_Sold: Yup.string()
+      .required('Part Sold is required')      ,
+      Rooms: Yup.string()
+      .required('Rooms is required')      ,
+      Sale_Quarter: Yup.string()
+      .required('Sale Quarter is required')      ,
+      Sale_Year: Yup.string()
+      .required('Sale Year is required')      
+
   });
  const { register, handleSubmit ,formState: { errors }
 } = useForm({
@@ -29,30 +28,55 @@ export default function Form() {
 });
 
  return (
+  <div className="form-group">
    <form onSubmit={handleSubmit(data => AddNewRecord(data))} >
-     <h1>New Order</h1>
+     <h1>New RelaeState Info</h1>
      <label>Sale_value_in_shekels</label>
      <input name="Sale_value_in_shekels" 
-     {...register('Sale_value_in_shekels', { required: true })}  className={`form-control ${
-      errors.confirmPassword ? 'is-invalid' : ''
+     {...register('Sale_value_in_shekels', { required: true })} 
+      className={`form-control ${
+      errors.Sale_value_in_shekels ? 'is-invalid' : ''
     }`}/>
-
-
-
+    <div className="invalid-feedback">{errors.Sale_value_in_shekels?.message}</div>
      <label>Area</label>
-     <input name="Area" {...register('Area', { required: true })} />
+     <input name="Area" {...register('Area', { required: true })} 
+      className={`form-control ${
+        errors.Area ? 'is-invalid' : ''
+      }`}/>
+     <div className="invalid-feedback">{errors.Area?.message}</div>
      <label>Num_Building</label>
-     <input name="Num_Building" {...register('Num_Building', { required: true })} />
+     <input name="Num_Building" {...register('Num_Building', { required: true })} 
+      className={`form-control ${
+        errors.Num_Building ? 'is-invalid' : ''
+      }`}/>
+     <div className="invalid-feedback">{errors.Num_Building?.message}</div>
      <label>Part_Sold</label>
-     <input name="Part_Sold" {...register('Part_Sold', { required: true })} />
+     <input name="Part_Sold" {...register('Part_Sold', { required: true })} 
+      className={`form-control ${
+        errors.Part_Sold ? 'is-invalid' : ''
+      }`}/>
+     <div className="invalid-feedback">{errors.Part_Sold?.message}</div>
      <label>Rooms</label>
-     <input name="Rooms" {...register('Rooms', { required: true })} />
+     <input name="Rooms" {...register('Rooms', { required: true })} 
+      className={`form-control ${
+        errors.Rooms ? 'is-invalid' : ''
+      }`}/>
+     <div className="invalid-feedback">{errors.Rooms?.message}</div>
      <label>Sale_Quarter</label>
-     <input name="Sale_Quarter" {...register('Sale_Quarter', { required: true })} />
+     <input name="Sale_Quarter" {...register('Sale_Quarter', { required: true })} 
+      className={`form-control ${
+        errors.Sale_Quarter ? 'is-invalid' : ''
+      }`}/>
+     <div className="invalid-feedback">{errors.Sale_Quarter?.message}</div>
      <label>Sale_Year</label>
-     <input name="Sale_Year" {...register('Sale_Year', { required: true })} />
+     <input name="Sale_Year" {...register('Sale_Year', { required: true })} 
+      className={`form-control ${
+        errors.Sale_Year ? 'is-invalid' : ''
+      }`}/>
+     <div className="invalid-feedback">{errors.Sale_Year?.message}</div>
      <input type="submit"/>
    </form>
+   </div>
  );
  
 
