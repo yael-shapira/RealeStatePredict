@@ -38,9 +38,9 @@ const Styles = styled.div`
 // Our table component
 
 // Our table component
-function Table({ columns, data }) {
+function Table({ columns, data,newRowValues,...props }) {
   
- 
+  
 
   const {
     handleAddRow,
@@ -80,7 +80,7 @@ function Table({ columns, data }) {
   // We don't want to render all of the rows for this example, so cap
   // it for this use case
   const firstPageRows = rows.slice(0, 20)
-
+  
   return (
     <> 
     {/* <i class="bi bi-align-center"></i> */}

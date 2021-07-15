@@ -6,16 +6,16 @@ import {
       Route,
       useParams,
     } from "react-router-dom";
- import Car from './Car'
+
  import Home from './components/home'
  import AddNew from './components/addNew'
  import Predict from './components/predict'
  import RealestateList from './components/realestateList'
 const NavigationBar=()=>{ 
-          return(
+           return(
                          <Router>
-                              <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
-                                  <Navbar.Brand href="#home">Reale State </Navbar.Brand>
+                              <Navbar className="bg-warning text-dark ont-weight-bold" expand="lg" sticky="top">
+                                  <Navbar.Brand href="#home">Predict Real estate price  </Navbar.Brand>
                                   <Navbar.Toggle aria-controls="basic-navbar-nav" />
                                   <Navbar.Collapse id="basic-navbar-nav">
                                       <Nav className="mr-auto">
@@ -24,18 +24,18 @@ const NavigationBar=()=>{
                                       <Nav.Link href="/AddNew">Add New Details</Nav.Link>
                                       <Nav.Link href="/Predict">Predict</Nav.Link>
                                       <Nav.Link href="/Admin">Admin</Nav.Link>
-                                      <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                                       <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                                           <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                                           <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
                                           <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
                                           <NavDropdown.Divider />
                                           <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-                                      </NavDropdown>
+                                      </NavDropdown> 
                                       </Nav>
-                                      <Form inline>
+                                      {/* <Form inline>
                                       <FormControl type="text" placeholder="Search" className="mr-sm-2" />
                                       <Button variant="outline-success">Search</Button>
-                                      </Form>
+                                      </Form> */}
                                   </Navbar.Collapse>
                               </Navbar>
                               <br />

@@ -2,9 +2,12 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import {handler, AddNewRecord, AddRecordApi } from "../api/realestateApi";
 import { yupResolver } from '@hookform/resolvers/yup';
+import Popup from 'reactjs-popup';
 import * as Yup from 'yup';
+import RealeStateList from "./realestateList";
  
 export default function Form() {
+  const [realestates, setRealestates] = React.useState([]);
   const validationSchema = Yup.object().shape({
     Sale_value_in_shekels: Yup.string()
     .required('Sale value is required'),    
@@ -26,10 +29,17 @@ export default function Form() {
 } = useForm({
   resolver: yupResolver(validationSchema)
 });
+function test (data)
+{  
+  AddNewRecord(data).then(setRealestates(([data,...realestates])));  
+  if(true)
+    return <RealeStateList></RealeStateList>
 
+}  
  return (
   <div className="form-group">
-   <form onSubmit={handleSubmit(data => AddNewRecord(data))} >
+   <form onSubmit={handleSubmit(data => test(data))}>
+   {/* {handleSubmit(data => AddNewRecord(data).then(setRealestates(([...realestates, data])); */}
      <h1>New RelaeState Info</h1>
      <label>Sale_value_in_shekels</label>
      <input name="Sale_value_in_shekels" 
