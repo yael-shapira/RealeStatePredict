@@ -85,7 +85,7 @@ function Table({ columns, data,newRowValues,...props }) {
     <> 
     {/* <i class="bi bi-align-center"></i> */}
 
-     <button
+     {/* <button
                 onClick={handleAddRow}
                 className="btn btn-default pull-left"
               >
@@ -96,7 +96,7 @@ function Table({ columns, data,newRowValues,...props }) {
                 className="pull-right btn btn-default"
               >
                 Delete Row
-              </button>
+              </button> */}
        
               <table {...getTableProps()} className="table table-hover">
         <thead className="thead-dark">
