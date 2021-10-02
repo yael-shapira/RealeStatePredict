@@ -31,12 +31,8 @@ export default function Form() {
   <div className="form-group">
    <form onSubmit={handleSubmit(data => AddNewRecord(data))} >
      <h1>New RelaeState Info</h1>
-     <label>Sale_value_in_shekels</label>
-     <input name="Sale_value_in_shekels" 
-     {...register('Sale_value_in_shekels', { required: true })} 
-      className={`form-control ${
-      errors.Sale_value_in_shekels ? 'is-invalid' : ''
-    }`}/>
+      
+     
     <div className="invalid-feedback">{errors.Sale_value_in_shekels?.message}</div>
      <label>Area</label>
      <input name="Area" {...register('Area', { required: true })} 

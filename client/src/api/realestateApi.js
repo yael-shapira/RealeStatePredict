@@ -19,7 +19,32 @@ export async function AddNewRecord (newRecord) {
     const content = await rawResponse.json().then(alert("New Information has benn added to the Data")); 
  
     console.log(content);
-  }  
+  } 
+    
+export async function CleanDataAPI () {
+  const rawResponse = await fetch(`${baseURL}cleanData`, {
+    method: 'POST',
+    headers: {       
+      "Access-Control-Allow-Origin": "*",
+      mode: "cors",  
+      'Content-Type': 'application/json'         
+    },
+   
+  });
+  const content = await rawResponse.json().then(alert("New Information has benn added to the Data")); 
+
+  console.log(content);
+  // const rawResponse = await fetch(`${baseURL}cleanData`, {
+  //   method: 'POST',
+  //   headers: {       
+  //     'Content-Type': 'application/json'         
+  //   },
+    
+  // }).then(({ results }) => 
+   
+
+  // console.log(results));
+  } 
 export async function handler (event) {
     const response = {
         statusCode: 200,

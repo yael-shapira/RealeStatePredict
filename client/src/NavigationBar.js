@@ -10,6 +10,8 @@ import {
  import Home from './components/home'
  import AddNew from './components/addNew'
  import Predict from './components/predict'
+ import Admin from './components/admin'
+
  import RealestateList from './components/realestateList'
 const NavigationBar=()=>{ 
            return(
@@ -51,6 +53,9 @@ const NavigationBar=()=>{
                                   </Route>
                                   <Route path="/predict">
                                       <Predict/>
+                                  </Route>
+                                  <Route path="/admin">
+                                      <Admin/>
                                   </Route>
                                   <Route path="/realestateList">
                                       <RealestateList/>
