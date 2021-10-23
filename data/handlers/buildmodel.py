@@ -15,12 +15,13 @@ def load_data():
     return df
 #this method take all new data added to realEstateInfoNew table
 def load_RealEstateNewdata():
-    conn = sql.connect('RtateDB.db')
-    df = pd.read_sql_query("select * from realEstateInfoNew",conn)  
-    conn.close()    
+    # conn = sql.connect('RtateDB.db')
+    # df = pd.read_sql_query("select * from realEstateInfoNew",conn)  
+    #conn.close()    
+    df = pd.read_excel("C:\\Users\\USER\\Desktop\\Yael_Course\\RealestateApartmenInfoOriginal.xlsx",header=0)
     return df
 def load_locality_data():   
-    dfLocality =  pd.read_excel("C:\\Users\\USER\\Desktop\\Yael_Course\\NewLocalityList-update.xlsx")
+    dfLocality =  pd.read_excel("C:\\Users\\USER\\Desktop\\Yael_Course\\NewLocalityList-update.xlsx",header=0)
     return dfLocality 
 def reload_data(dfGlobal):    
     headers = {"Content-Type": "application/json",                       
@@ -42,49 +43,42 @@ def reload_data(dfGlobal):
     return dfupdate     
  
 def check_realestate_data(df): 
-    stat = df.describe() 
-    if not stat.iloc[0].max() == stat.iloc[0].min(): 
-        return False, "missing values" 
-    if (stat.Area['min'] < 0) or (stat.Area['max'] > 300): 
-        return False, "Wrong Area data" 
-    return True,"OK"
-
-def check_realestate_data(df):
     stat = df.describe()
     if not stat.iloc[0].max() == stat.iloc[0].min():
-        return False, "missing values"
+        return "False - missing values"
     if (stat.Area['min'] < 0) or (stat.Area['max'] > 666):
-        return False, "Wrong Area data"
-    return True,"OK"
+        return "False - Wrong Area data"
+    return "True" 
+ 
 def check_locality_data(dfLocality):
     stat = dfLocality.describe()
     if not stat.iloc[0].max() == stat.iloc[0].min():
-        return False, "missing values"    
-    return True,"OK"
+        return "False missing values"    
+    return "True OK"
 def GetQuarter(date_to_convert):
     return pd.Timestamp(date_to_convert).quarter
 def CalcYearBuilding(year_building):
     return (datetime.now().year) - year_building   
-# def updateArea(row):
-#     if row.Area>40:
-#         return row.Area
-#     return int(model.predict([[row.Rooms]]).round())
+def UpdateArea(row):
+    if row.Area>40:
+        return row.Area
+    return int(model.predict([[row.Rooms]]).round())
 def prepare_realeState_data(df):
-    #global model     
+    global model     
     df.head()
-    #df = df[df['Year_Building'] > 1800]
-    #df = df[df['Part_Sold'] >=1] 
-    # df = df[df['Area'] < 300]   
-    # df['Sale_Year'] = df['Sale_Day'].dt.year
-    # df['Sale_Quarter'] = df['Sale_Day'].apply(GetQuarter)
-    # df['Num_Building'] =df['Num_Building'].apply(CalcYearBuilding)   
-    # X = df.query("Rooms>0").Rooms.values.reshape(-1,1)
-    # y = df.query("Rooms>0").Area
-    # model = sl.LinearRegression()
-    # model.fit(X,y)
-    # if df['Area']<40:
-    #     df['Area'] = int(model.predict([ df['Rooms']]).round())
+    df = df[df['Year_Building'] > 1800]
+    df = df[df['Part_Sold'] >=1] 
+    df = df[df['Area'] < 300]   
+    df['Sale_Year'] = df['Sale_Day'].dt.year
+    df['Sale_Quarter'] = df['Sale_Day'].apply(GetQuarter)
+    df['Num_Building'] =df['Year_Building'].apply(CalcYearBuilding)   
+    X = df.query("Rooms>0").Rooms.values.reshape(-1,1)
+    y = df.query("Rooms>0").Area
+    model = sl.LinearRegression()
+    model.fit(X,y)
+    df['Area'] = df.apply(UpdateArea,axis=1)  
     return df
+
 def replace_column_names(df):
     df.rename(columns = {'גוש חלקה' : 'Block_plot', 'יום מכירה' : 'Sale_Day','תמורה מוצהרת בש"ח':'Declared_value_in_shekels','שווי מכירה בש"ח':'Sale_value_in_shekels',
                     'מהות':'Essence','חלק נמכר':'Part_Sold','ישוב':'Locality','שנת בניה':'Year_Building','שטח':'Area','חדרים':'Rooms'}, inplace = True)

@@ -1,50 +1,52 @@
 //import { handleResponse,handleError } from "./apiUtils";
-const baseURL = "http://127.0.0.1:8000/api/";//GetRealestateInfo";
+import axios from "axios"
+
+const baseURL = "http://127.0.0.1:8000/api/";
 
  export async function  RealestateApi ()
 {   
     const response = await fetch(`${baseURL}GetRealestateInfo`);
-    const json = await response;//.json();     
-    return json;   
-  
+    const json = await response;
+    return json;     
 }
+
 export async function AddNewRecord (newRecord) {
-    const rawResponse = await fetch(`${baseURL}addNewRecord`, {
-      method: 'POST',
-      headers: {       
-        'Content-Type': 'application/json'         
-      },
-      body:JSON.stringify(newRecord),    
-    });
-    const content = await rawResponse.json().then(alert("New Information has benn added to the Data")); 
- 
-    console.log(content);
-  } 
-    
-export async function CleanDataAPI () {
-  const rawResponse = await fetch(`${baseURL}cleanData`, {
+  const rawResponse = await fetch(`${baseURL}addNewRecord`, {
     method: 'POST',
     headers: {       
-      "Access-Control-Allow-Origin": "*",
-      mode: "cors",  
       'Content-Type': 'application/json'         
     },
-   
+    body:JSON.stringify(newRecord),    
   });
   const content = await rawResponse.json().then(alert("New Information has benn added to the Data")); 
-
   console.log(content);
-  // const rawResponse = await fetch(`${baseURL}cleanData`, {
-  //   method: 'POST',
-  //   headers: {       
-  //     'Content-Type': 'application/json'         
-  //   },
-    
-  // }).then(({ results }) => 
-   
-
-  // console.log(results));
+} 
+      
+export async function CleanDataAPI () {
+  const response = await fetch(`${baseURL}cleanData`, {
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    headers: {
+      'Access-Control-Allow-Origin' : '*',
+      'Content-Type': 'application/json'     
+    },
+ });
+  const content = await response.json().then(alert("Data Cleaned!!!")); 
+  return content;
   } 
+
+  export async function SaveCleanDataAPI (data) {
+    const response = await fetch(`${baseURL}saveToCleanTable`, {
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      headers: {
+        'Access-Control-Allow-Origin' : '*',
+        'Content-Type': 'application/json'     
+      },
+      body:JSON.stringify(data),    
+   });
+    const content = await response.json().then(alert("Save Successfully!!!")); 
+    console.log(content);
+    } 
+
 export async function handler (event) {
     const response = {
         statusCode: 200,
