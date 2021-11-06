@@ -34,7 +34,7 @@ export async function CleanDataAPI () {
   return content;
   } 
 
-  export async function SaveCleanDataAPI (data) {
+export async function SaveCleanDataAPI (data) {
     const response = await fetch(`${baseURL}saveToCleanTable`, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       headers: {
@@ -47,17 +47,19 @@ export async function CleanDataAPI () {
     console.log(content);
     } 
 
-export async function handler (event) {
-    const response = {
-        statusCode: 200,
-        headers: {
-            "Access-Control-Allow-Headers" : "Content-Type",
-            "Access-Control-Allow-Origin": baseURL+"/addNewRecord",
-            "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
-        },
-        body: JSON.stringify(event),
-    };
-    return response;
-};
+ 
+export async function trainModelAPI (data) {
+  const response = await fetch(`${baseURL}trainModel`, {
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    headers: {
+      'Access-Control-Allow-Origin' : '*',
+      'Content-Type': 'application/json'     
+    },       
+ });
+  const content = await response.json().then(alert("Train the Model Successfully!!!")); 
+  console.log(content);
+  } 
+
+ 
 
 export default RealestateApi;

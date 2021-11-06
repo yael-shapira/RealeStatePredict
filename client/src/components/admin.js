@@ -1,19 +1,25 @@
  
  
 import React ,{useEffect,useMemo,useState} from 'react'
-import { Route, BrowserRouter } from 'react-router-dom'
-import {handler, CleanDataAPI ,SaveCleanDataAPI} from "../api/realestateApi";
+import { FaSave } from 'react-icons/fa';
 
+import { Route, BrowserRouter } from 'react-router-dom'
+import Loader from 'react-loader-spinner';
+import {handler, CleanDataAPI ,SaveCleanDataAPI,trainModelAPI} from "../api/realestateApi";
+import LoadingIndicator from './common/LoadingIndicator'
 export default function Admin() {
    const [data,setData]=useState([]);
-   const [isLoading,setIsloading] =useState(false);
+   const [isLoading, setLoading] = useState(false);
  
+   
   function cleanData ()
   {  
+    setLoading(true)
     CleanDataAPI().then(function(response){
       console.log(response)
       setData(response)
-      setIsloading(true)
+      setLoading(false)
+       
     });
   }  
   function SaveCleanData (data)
@@ -23,32 +29,48 @@ export default function Admin() {
   }  
   function trainModel (data)
   {  
-    CleanDataAPI().then(alert("train the Model!!!"));  
+    trainModelAPI().then(alert("train the Model!!!"));  
   }  
     return(
       <>
+       
       <div className="container">
         <div className="col-12">
-      <div>
+      <div className="row">
    <p className="text-left">
 
+   
+    
+ 
+{isLoading &&
+<>
+
+  <div
+    style={{
+      width: "100%",
+      height: "100",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center"
+    }}
+  ><p>
      1.take all RealeState data from .xlsx file<br/>
      2.take all Locality data from .xlsx file<br/>
      3.Clean all the data<br/>
      4.put all clean data in the cleanTable<br/>
+</p>
+<br/>
+    <Loader type="ThreeDots" color="#FFC107" height="100" width="100" />
+  </div>
+  </>
+}
 
-     5.train the model <br/>
-
-
-     1.take all data from the and clean the data<br/>
-     2.put all clean data in the cleanTable<br/>
-     3. delete all rows from the newTable<br/>
-     4.train the model 
+     
      </p>
      <br/>
-     <button onClick={cleanData}>Import File & Clean Data</button> <br/>
-     <button  className="mt-4" onClick={() => SaveCleanData(data)}>Save Data to Table</button> <br/>
-     <button className="mt-4" onClick={trainModel}>Train the Model</button>
+     <FaSave />
+     <button onClick={cleanData}>Import Files & Clean & Save Data</button> <br/>
+      <button className="mt-4" onClick={trainModel}>Train the Model</button>
        
 </div></div>
       </div>
