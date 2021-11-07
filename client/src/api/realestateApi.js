@@ -30,7 +30,7 @@ export async function CleanDataAPI () {
       'Content-Type': 'application/json'     
     },
  });
-  const content = await response.json().then(alert("Data Cleaned!!!")); 
+  const content = await response.json().then(alert("The transaction completed successfully!")); 
   return content;
   } 
 
@@ -43,7 +43,7 @@ export async function SaveCleanDataAPI (data) {
       },
       body:JSON.stringify(data),    
    });
-    const content = await response.json().then(alert("Save Successfully!!!")); 
+    const content = await response.json().then(alert("The transaction completed successfully!")); 
     console.log(content);
     } 
 
@@ -56,8 +56,9 @@ export async function trainModelAPI (data) {
       'Content-Type': 'application/json'     
     },       
  });
-  const content = await response.json().then(alert("Train the Model Successfully!!!")); 
+  const content = await response.json().then(alert("The transaction completed successfully!")); 
   console.log(content);
+  return content;
   } 
 
  

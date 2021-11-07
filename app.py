@@ -131,11 +131,17 @@ def fitModel():
     conn = sql.connect('RtateDB.db')
     df = pd.read_sql_query("select * from realEstateInfoNew",conn)     
     result = df.to_json(orient="records")
-    parsed = json.loads(result)
-    json.dumps(parsed, indent=4)            
-    response = make_response(jsonify(parsed))  
+   
     conn.close()
     result,score = dm.build_model(df)
+    dataResult = {
+    'trainModel': 'RandomForest',
+    'result': result,
+    'score': score
+    
+}
+    json.dumps(dataResult)       
+    response = make_response(jsonify(dataResult))  
     return response
 
 # @app.route('/predict',methods=['POST'])
