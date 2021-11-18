@@ -11,3 +11,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+h1 {
+  /* Extra small devices (phones, less than 768px) */
+  font-size: 100px;
+}

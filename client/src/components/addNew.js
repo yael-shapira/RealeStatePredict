@@ -1,6 +1,6 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import { useForm } from "react-hook-form";
-import {handler, AddNewRecord, AddRecordApi } from "../api/realestateApi";
+import {handler, AddNewRecord, AddRecordApi,GetAllCities } from "../api/realestateApi";
 import { yupResolver } from '@hookform/resolvers/yup';
 import Popup from 'reactjs-popup';
 import * as Yup from 'yup';
@@ -8,6 +8,9 @@ import RealeStateList from "./realestateList";
  
 export default function Form() {
   const [realestates, setRealestates] = React.useState([]);
+  const [cities,setCities]=useState([]);
+  const [isLoading,setIsloading] =useState(false);
+  const [selectedCity,setSelectedCity]=useState([]);
   const validationSchema = Yup.object().shape({
     Sale_value_in_shekels: Yup.string()
     .required('Sale value is required'),    
@@ -29,18 +32,44 @@ export default function Form() {
 } = useForm({
   resolver: yupResolver(validationSchema)
 });
+function handleChange(event) {
+  let value = event.target.value;
+  setSelectedCity(value);
+}
 function test (data)
 {  
-  AddNewRecord(data).then(setRealestates(([data,...realestates])));  
+  const dataWithCity = {...data,city:selectedCity};
+  AddNewRecord(dataWithCity).then(setRealestates(([dataWithCity,...realestates])));  
   if(true)
     return <RealeStateList></RealeStateList>
 
 }  
+
+function getCities(){
+  GetAllCities()
+      .then(function(response){
+        console.log(response)
+        return response.json();
+      })
+      .then(function(myJson) {
+        console.log(myJson);
+        setCities(myJson)
+        setIsloading(true)
+      });
+  }
+  useEffect(()=>{
+    if(cities.length===0 && !isLoading)
+      getCities()
+  },[cities])
+
  return (
-  <div className="form-group">
+  <div className="row">
+    <div className="col"></div>
+    <div className="col-5 ">
+    <div className="form-group">
    <form onSubmit={handleSubmit(data => test(data))}>
    {/* {handleSubmit(data => AddNewRecord(data).then(setRealestates(([...realestates, data])); */}
-     <h1>New RelaeState Info</h1>
+     <h1 className="text-center text-warning">New RelaeState Info</h1>
      <label>Sale_value_in_shekels</label>
      <input name="Sale_value_in_shekels" 
      {...register('Sale_value_in_shekels', { required: true })} 
@@ -84,8 +113,26 @@ function test (data)
         errors.Sale_Year ? 'is-invalid' : ''
       }`}/>
      <div className="invalid-feedback">{errors.Sale_Year?.message}</div>
-     <input type="submit"/>
+     <div> 
+     <label>City</label>
+        <select name="select" onChange={(e) => handleChange(e)} placeholder='select a City' className="form-control">
+        <option key={1} value="select a city">select a city</option>
+       { cities?.filter((x)=>x.CityName!=null).map(option => {
+          return (
+            <option key={option.CityName} value={option.CityName}>
+              {option.CityName ?? option.CityName}
+            </option>
+          );
+      })}  
+    </select></div>
+     <div class="col text-center">
+     <input type="submit" value="Save" className="mt-4 btn btn-warning"/>
+     </div>
    </form>
+   </div>
+    </div>
+      <div className="col"></div> 
+ 
    </div>
  );
  

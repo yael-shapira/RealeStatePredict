@@ -45,15 +45,18 @@ import AlertMessageBox from './common/AlertMessageBox';
   <div className="col-12 pt-4">
       <div className="row">
       <div className="col"> </div>
-      <div className="col-10 square border border-warning pb-4">
-       <u> <h2 className="pt-2 pb-4 font-weight-bold text-center text-warning">Admin:</h2></u>
-      <FaSave />
-     <button onClick={cleanData} className="btn btn-warning">Clean Data</button> <br/>
-     <br/> 
+      <div className="col-5 square border border-warning pb-4">
+         <h1 className="pt-2 pb-4 font-weight-bold text-center text-warning">Admin </h1>
+    <div className="col text-center mb-3">
+    <FaSave />
+     <button onClick={cleanData} className="btn btn-warning">Clean Data.</button> <br/>
+     </div>
+     <div className="col text-center">
+
      <FaTrain/>
        <button  className="btn btn-warning " onClick={trainModel}>Train Model</button>
-     {trainData.score  && !isTrainModel  &&
-      <h3 className="mt-4 font-weight-bold ">The Score is {trainData.score }</h3>}
+    </div> {trainData.score  && !isTrainModel  &&
+      <h3 className="text-center mt-4 font-weight-bold ">The Score is {trainData.score?.toFixed(2) }</h3>}
      {(isCleanData || isTrainModel) &&
  <>
 
@@ -72,11 +75,11 @@ import AlertMessageBox from './common/AlertMessageBox';
  <div className="row">
  {isCleanData && 
  <>
- <p>
+ <p className="text-center">
  <Wave1 text="Take all RealeState data from Local file." className="text-warning"></Wave1></p>
- <p><Wave1 text="Take all Locality data from Local file."></Wave1></p>
- <p><Wave1 text="Prepare all the data."></Wave1></p>
- <p><Wave1 text="Store the clean data in RealEstateInfoNew Table."></Wave1>
+ <p className="text-center"><Wave1 text="Take all Locality data from Local file."></Wave1></p>
+ <p className="text-center"><Wave1 text="Prepare all the data."></Wave1></p>
+ <p className="text-center"><Wave1 text="Store the clean data in RealEstateInfoNew Table."></Wave1>
     
 </p></>}
 

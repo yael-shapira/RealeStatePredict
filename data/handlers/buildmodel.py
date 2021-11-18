@@ -115,12 +115,18 @@ def build_model(df):
         model.fit(X_train, y_train)
         score = model.score(X_test,y_test)
         if(score<0.91):
-            return False,score
-        return True,score
+            return False,score,model
+        return True,score,model
 def save_model(model):
     f = open('modeldata','wb')
     pickle.dump(model,f)
     f.close()
+    return "saved"
+def loadModelWithPredict(predData):
+    with open('modeldata', 'rb') as f:
+        loaded_model = pickle.load(f)
+    return str(loaded_model.predict(predData))  
+# iris classifier: accuracy: 0.9333333333333333
 # df = load_data()
 # dfLocality = load_locality_data()
 # df = replace_column_names(df)

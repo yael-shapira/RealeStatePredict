@@ -10,6 +10,28 @@ const baseURL = "http://127.0.0.1:8000/api/";
     return json;     
 }
 
+export async function  GetAllCities ()
+{   
+    const response = await fetch(`${baseURL}GetCityies`);
+    const json = await response;
+    return json;     
+}
+
+
+
+export async function PredictAPI (predictData) {
+  const response = await fetch(`${baseURL}predict`, {
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    headers: {
+      'Access-Control-Allow-Origin' : '*',
+      'Content-Type': 'application/json'     
+    },
+    body:JSON.stringify(predictData),    
+ });
+  const content = await response.json().then(alert("The prediction completed successfully!")); 
+  return content;
+  } 
+
 export async function AddNewRecord (newRecord) {
   const rawResponse = await fetch(`${baseURL}addNewRecord`, {
     method: 'POST',
