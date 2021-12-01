@@ -125,31 +125,4 @@ def save_model(model):
 def loadModelWithPredict(predData):
     with open('modeldata', 'rb') as f:
         loaded_model = pickle.load(f)
-    return str(loaded_model.predict(predData))  
-# iris classifier: accuracy: 0.9333333333333333
-# df = load_data()
-# dfLocality = load_locality_data()
-# df = replace_column_names(df)
-# df = prepare_realeState_data(df)
-# dfLocality = prepare_locality_data(dfLocality)
-# dfGlobal = prepare_global_data(df,dfLocality)
-# #dfGlobal = reload_data(dfGlobal)
-# res,model = build_model(dfGlobal)
-# res
-# model
-
-
-# save_model(model)
-#     score=0
-#     y = dfGlobal.Sale_value_in_shekels
-#     X = dfGlobal.drop(['Sale_value_in_shekels'],axis=1)
-#     for i in range(5):
-#         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33)
-#         model = RandomForestRegressor(n_estimators=500,max_depth=8,max_features='auto',criterion='mse')   
-#         model.fit(X_train, y_train)
-#         score = model.score(X_test,y_test)
-#         if(score<0.91):
-#             print("False " +str(score))
-#         print("True " +str(score))
- 
-  
+    return str(loaded_model.predict(predData))   

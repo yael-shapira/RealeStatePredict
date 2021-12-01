@@ -69,7 +69,7 @@ function predictPrice (data)
     <div className="col-5 ">
     <div className="form-group">
    <form onSubmit={handleSubmit(data => predictPrice(data))}>
-      <h1 className="text-center text-warning">New RelaeState Info</h1>
+      <h1 className="text-center text-warning">Predict Details</h1>
    
        <label>Area</label>
      <input name="Area" {...register('Area', { required: true })} 
