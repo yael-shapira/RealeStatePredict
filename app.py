@@ -99,14 +99,6 @@ def predict():
             saleYear = json_data['Sale_Year']
             numBuilding = json_data['Num_Building'] 
             city = json_data['city'] 
-
-            # df = dm.load_data()
-            # dfLocality = dm.load_locality_data()
-            # df = dm.replace_column_names(df)
-            # df = dm.prepare_realeState_data(df)
-            # dfLocality = dm.prepare_locality_data(dfLocality)
-            # dfGlobal = dm.prepare_global_data(df,dfLocality)
-
             dfLocality = dm.load_locality_data()  
             dfLocality = dm.prepare_locality_data(dfLocality)
             dfLocality.drop(['Nicknames','Demography','YearEstablishment','YearDeclarationAsCity'],axis='columns', inplace=True)
@@ -233,35 +225,6 @@ def fitModel():
     json.dumps(dataResult)       
     response = make_response(jsonify(dataResult))  
     return response
-
-# @app.route('/predict',methods=['POST'])
-# def predictitem():  
-#         json_data = request.json
-#         saleValue = json_data['Sale_value_in_shekels']
-#         partSold = json_data['Part_Sold']
-#         area = json_data['Area']
-#         rooms  = json_data['Rooms']
-#         saleQuarter = json_data['Sale_Quarter']
-#         saleYear = json_data['Sale_Year']
-#         numBuilding = json_data['Num_Building'] 
-#         f = open('./data/modeldata','rb')
-#         model = pickle.load(f)
-#         f.close()
-#         ls = [saleValue,partSold,area,rooms,saleQuarter,saleYear,numBuilding] 
-        
-        #         v = model.predict([ls])
-
-#         return "END"
-
-
-# @app.route('/admin',methods=['POST'])
-# def trainModel():
-#    conn = sql.connect('RtateDB.db')
-#     df = pd.read_sql_query("select * from realEstateInfoNew",conn)     
-#     result = df.to_json(orient="records")
-#     parsed = json.loads(result)
-#     json.dumps(parsed, indent=4)            
-#   return "END"
  
 if __name__ == '__main__':
     app.run(debug=True,port=8000)
